@@ -1,0 +1,12 @@
+Root: -2
+Iteration: 20
+
+Approximate root: -1
+Iteration: 3
+
+Root: 1
+Iteration: 7
+
+Root: 2
+Iteration: 30
+
