@@ -15,7 +15,7 @@ double f(vector<double> cof, double x, int n)
     return sum;
 }
 
-void FalsePosition(int n, vector<double> cof, double lower, double upper, ofstream &out)
+void Bisection(int n, vector<double> cof, double lower, double upper, ofstream &out)
 {
     double mid = lower;
     int iteration = 0;
@@ -29,8 +29,7 @@ void FalsePosition(int n, vector<double> cof, double lower, double upper, ofstre
     while(fabs(upper - lower) > E)
     {
         iteration++;
-        mid = lower - f(cof, lower, n) *
-              ((upper - lower) / (f(cof, upper, n) - f(cof, lower, n)));
+        mid = (lower+upper)/2;
 
         if(fabs(f(cof, mid, n)) < 1e-12)
         {
@@ -78,7 +77,7 @@ int main()
 
         if(f(cof, y1, n) * f(cof, y2, n) < 0)
         {
-            FalsePosition(n, cof, y1, y2, out);
+            Bisection(n, cof, y1, y2, out);
             out << "\n";
         }
         start += step;

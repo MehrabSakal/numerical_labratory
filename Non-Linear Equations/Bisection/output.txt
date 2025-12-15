@@ -1,0 +1,12 @@
+Approximate root: -1.99999
+Iteration: 13
+
+Approximate root: -0.999985
+Iteration: 13
+
+Approximate root: 1.00001
+Iteration: 13
+
+Approximate root: 2.00001
+Iteration: 13
+
