@@ -1,0 +1,8 @@
+Unique Solution exists:
+x1:5.15385
+x2:-1
+x3:2.26154
+x4:-0.138462
+x5:1.18462
+Infinite Solution
+No Solution
