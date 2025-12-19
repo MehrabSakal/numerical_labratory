@@ -109,18 +109,114 @@
 [Add your theory content here]
 
 #### Gauss Elimination Code
-```python
-# Add your code here
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<double> gauss_elimination(vector<vector<double>>& mat, int n, ofstream& out){
+    const double eps = 1e-9;
+
+    for(int k = 0; k < n - 1; k++){
+        int i_max = k;
+        for(int i = k + 1; i < n; i++){
+            if(fabs(mat[i][k]) > fabs(mat[i_max][k])){
+                i_max = i;
+            }
+        }
+
+        if(fabs(mat[i_max][k]) < eps){
+            return {};
+        }
+
+        swap(mat[i_max], mat[k]);
+
+        for(int i = k + 1; i < n; i++){
+            double factor = mat[i][k] / mat[k][k];
+            for(int j = k; j <= n; j++){
+                mat[i][j] -= mat[k][j] * factor;
+            }
+        }
+    }
+
+    out << fixed << setprecision(3);
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j <= n; j++){
+            out << mat[i][j] << " ";
+        }
+        out <<endl;
+    }
+    out <<endl;
+
+    vector<double> x(n);
+    for(int i = n - 1; i >= 0; i--){
+        if(fabs(mat[i][i]) < eps){
+            return {};
+        }
+        x[i] = mat[i][n];
+        for(int j = i + 1; j < n; j++){
+            x[i] -= mat[i][j] * x[j];
+        }
+        x[i] /= mat[i][i];
+    }
+
+    return x;
+}
+
+int main(){
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+
+    int n;
+    in >> n;
+
+    vector<vector<double>> mat(n, vector<double>(n + 1));
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j <= n; j++){
+            in >> mat[i][j];
+        }
+    }
+
+    vector<double> solution = gauss_elimination(mat, n, out);
+
+    if(solution.empty()){
+        out << "No unique solution";
+        return 0;
+    }
+
+    out << fixed << setprecision(3);
+    for(double v : solution){
+        out <<"Root: "<< v <<endl;
+    }
+
+    return 0;
+}
+
 ```
 
 #### Gauss Elimination Input
 ```
-[Add your input format here]
+5 
+2 1 -1 3 2 9 
+1 3 2 -1 1 8 
+3 2 4 1 -2 20 
+2 1 3 2 1 17 
+1 -1 2 3 4 15
 ```
 
 #### Gauss Elimination Output
 ```
-[Add your output format here]
+3.000 2.000 4.000 1.000 -2.000 20.000 
+0.000 2.333 0.667 -1.333 1.667 1.333 
+0.000 0.000 -3.571 2.143 3.571 -4.143 
+0.000 0.000 0.000 2.400 7.000 7.960 
+0.000 0.000 0.000 0.000 -1.083 -1.283 
+
+Root: 5.154
+Root: -1.000
+Root: 2.262
+Root: -0.138
+Root: 1.185
+
 ```
 
 ---
@@ -131,18 +227,98 @@
 [Add your theory content here]
 
 #### Gauss Jordan Code
-```python
-# Add your code here
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int gauss_jordan(vector<vector<double>>& mat, int n, vector<double>& x) {
+    const double eps = 1e-12;
+    vector<int> where(n, -1);
+
+    for (int col = 0, row = 0; col < n && row < n; ++col) {
+        int sel = row;
+        for (int i = row; i < n; ++i) {
+            if (fabs(mat[i][col]) > fabs(mat[sel][col])) sel = i;
+        }
+        if (fabs(mat[sel][col]) < eps) continue;
+        swap(mat[sel], mat[row]);
+        where[col] = row;
+
+        for (int i = 0; i < n; ++i) {
+            if (i != row) {
+                double factor = mat[i][col] / mat[row][col];
+                for (int j = col; j <= n; ++j)
+                    mat[i][j] -= mat[row][j] * factor;
+            }
+        }
+        ++row;
+    }
+
+    x.assign(n, 0);
+    for (int i = 0; i < n; ++i) {
+        if (where[i] != -1)
+            x[i] = mat[where[i]][n] / mat[where[i]][i];
+    }
+
+    for (int i = 0; i < n; ++i) {
+        double sum = 0;
+        for (int j = 0; j < n; ++j)
+            sum += mat[i][j] * x[j];
+        if (fabs(sum - mat[i][n]) > eps) return 0; 
+    }
+
+    for (int i = 0; i < n; ++i)
+        if (where[i] == -1) return 2;
+
+    return 1;
+}
+
+int main() {
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+
+    int n;
+    in >> n;
+
+    vector<vector<double>> mat(n, vector<double>(n + 1));
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j <= n; ++j)
+            in >> mat[i][j];
+
+    vector<double> solution;
+    int res = gauss_jordan(mat, n, solution);
+
+    if (res == 0) out << "No solution";
+    else if (res == 2) out << "Infinitely many solutions";
+    else {
+        out << fixed << setprecision(3);
+        for (double v : solution)
+            out <<"Root: "<<v<< endl;
+    }
+
+    return 0;
+}
+
 ```
 
 #### Gauss Jordan Input
 ```
-[Add your input format here]
+5 
+2 1 -1 3 2 9 
+1 3 2 -1 1 8 
+3 2 4 1 -2 20 
+2 1 3 2 1 17 
+1 -1 2 3 4 15
 ```
 
 #### Gauss Jordan Output
 ```
-[Add your output format here]
+Root: 5.154
+Root: -1.000
+Root: 2.262
+Root: -0.138
+Root: 1.185
+
 ```
 
 ---
@@ -687,15 +863,83 @@ Iteration: 30
 
 ### Newton Rapson Code
 ```cpp
-code here
+#include<bits/stdc++.h>
+using namespace std;
+
+double f(double x){
+    return (x*x*x*x)-(5*x*x)+4;
+}
+
+double f_prime(double x){
+    return (4*x*x*x)-10*x;
+}
+
+vector<double> guesses(int n){
+    vector<double> a;
+    for(int i = -n; i < n - 1; i++){
+        double x = i;
+        double y = i + 1;
+        if(f(x) == 0){
+            a.push_back(x);
+        }
+        if(f(x) * f(y) < 0){
+            a.push_back(x);
+        }
+    }
+    return a;
+}
+
+void newton_raphson(double a, ofstream &out){
+    double c = a;
+    int itr = 0;
+    out << fixed << setprecision(4);
+    while(itr != 1000){
+        if(f_prime(a) == 0){
+            out << "Derivative is zero, no further iteration possible\n";
+            return;
+        }
+        c = a - (f(a) / f_prime(a));
+        if(fabs(c - a) < 0.0001){
+            break;
+        }
+        out << "c:" << a << " c(next):" << c << "\n";
+        a = c;
+        itr++;
+    }
+    out << "Root:" << c << " Iteration:" << itr + 1 << "\n";
+    out << "----------------------------\n";
+}
+
+int main(){
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+
+    int n;
+    in >> n;
+
+    vector<double> choose = guesses(n);
+    for(double x : choose){
+        newton_raphson(x, out);
+    }
+    return 0;
+}
+
 ```
 ### Newton Rapson Input
 ```
-input here
+5
 ```
 ### Newton Rapson Output
 ```
-output here
+Root:-2.0000 Iteration:1
+----------------------------
+Root:-1.0000 Iteration:1
+----------------------------
+Root:1.0000 Iteration:1
+----------------------------
+Root:2.0000 Iteration:1
+----------------------------
+
 ```
 ---
 
