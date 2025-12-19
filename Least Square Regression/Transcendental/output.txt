@@ -1,0 +1,3 @@
+Exponential Regression Model:
+y = 1.99163 * e^(0.30139x)
+Estimated y = 4.23097
