@@ -44,7 +44,61 @@
     - [Input](#secant-input)
     - [Output](#secant-output)
   
+- [Least Square Regression](#least-square-regression)
+  - [Linear Regression Method](#linear-regression-method)
+    - [Theory](#linear-regression-theory)
+    - [Code](#linear-regression-code)
+    - [Input](#linear-regression-input)
+    - [Output](#linear-regression-output)
+  - [Transcendental Regression Method](#transcendental-regression-method)
+    - [Theory](#transcendental-regression-theory)
+    - [Code](#transcendental-regression-code)
+    - [Input](#transcendental-regression-input)
+    - [Output](#transcendental-regression-output)
+  - [Polynomial Regression Method](#polynomial-regression-method)
+    - [Theory](#polynomial-regression-theory)
+    - [Code](#polynomial-regression-code)
+    - [Input](#polynomial-regression-input)
+    - [Output](#polynomial-regression-output)
 
+- [Interpolation Methods](#interpolation-methods)
+  - [Newton Forward Interpolation](#newton-forward-interpolation)
+    - [Theory](#newton-forward-theory)
+    - [Code](#newton-forward-code)
+    - [Input](#newton-forward-input)
+    - [Output](#newton-forward-output)
+  - [Newton Backward Interpolation](#newton-backward-interpolation)
+    - [Theory](#newton-backward-theory)
+    - [Code](#newton-backward-code)
+    - [Input](#newton-backward-input)
+    - [Output](#newton-backward-output)
+  - [Newton Divided Difference Interpolation](#newton-divided-difference-interpolation)
+    - [Theory](#newton-divided-difference-theory)
+    - [Code](#newton-divided-difference-code)
+    - [Input](#newton-divided-difference-input)
+    - [Output](#newton-divided-difference-output)
+- [Integration and Differentiation](#integration-and-differentiation)
+  - [Simpson 1/3 Rule](#simpson-13-rule)
+    - [Theory](#simpson-13-rule-theory)
+    - [Code](#simpson-13-rule-code)
+    - [Input](#simpson-13-rule-input)
+    - [Output](#simpson-13-rule-output)
+  - [Simpson 3/8 Rule](#simpson-38-rule)
+    - [Theory](#simpson-38-rule-theory)
+    - [Code](#simpson-38-rule-code)
+    - [Input](#simpson-38-rule-input)
+    - [Output](#simpson-38-rule-output)
+  - [Differentiation](#differentiation)
+    - [Theory](#differentiation-theory)
+    - [Code](#differentiation-code)
+    - [Input](#differentiation-input)
+    - [Output](#differentiation-output)
+- [Ordinary Differential Equation](#ordinary-differential-equation)
+  - [Runge Kutta Method](#runge-kutta-method)
+    - [Theory](#runge-kutta-theory)
+    - [Code](#runge-kutta-code)
+    - [Input](#runge-kutta-input)
+    - [Output](#runge-kutta-output)
 ---
 
 ### Solution of Linear Equations
@@ -534,6 +588,193 @@ code here
 input here
 ```
 ### Secant Output
+```
+output here
+```
+---
+### Least Square Regression
+
+### Linear Regression Method
+
+### Linear Regression Theory
+
+### Linear Regression Code
+```cpp
+code here
+```
+### Linear Regression Input
+```
+input here
+```
+### Linear Regression Output
+```
+output here
+```
+---
+
+### Transcendental Regression Method
+
+### Transcendental Regression Theory
+
+### Transcendental Regression Code
+```cpp
+code here
+```
+### Transcendental Regression Input
+```
+input here
+```
+### Transcendental Regression Output
+```
+output here
+```
+---
+
+### Polynomial Regression Method
+
+### Polynomial Regression Theory
+
+### Polynomial Regression Code
+```cpp
+code here
+```
+### Polynomial Regression Input
+```
+input here
+```
+### Polynomial Regression Output
+```
+output here
+```
+---
+
+
+### Interpolation Methods
+
+### Newton Forward Interpolation
+
+### Newton Forward Theory
+
+### Newton Forward Code
+```cpp
+code here
+```
+### Newton Forward Input
+```
+input here
+```
+### Newton Forward Output
+```
+output here
+```
+---
+### Newton Backward Interpolation
+
+### Newton Backward Theory
+
+### Newton Backward Code
+```cpp
+code here
+```
+### Newton Backward Input
+```
+input here
+```
+### Newton Backward Output
+```
+output here
+```
+---
+
+### Newton Divided Difference Interpolation
+
+### Newton Divided Difference Theory
+
+### Newton Divided Difference Code
+```cpp
+code here
+```
+### Newton Divided Difference Input
+```
+input here
+```
+### Newton Divided Difference Output
+```
+output here
+```
+---
+
+### Integration and Differentiation
+
+### Simpson 1/3 Rule
+
+### Simpson 1/3 Rule Theory
+
+### Simpson 1/3 Rule Code
+```cpp
+code here
+```
+### Simpson 1/3 Rule Input
+```
+input here
+```
+### Simpson 1/3 Rule Output
+```
+output here
+```
+---
+
+### Simpson 3/8 Rule
+
+### Simpson 3/8 Rule Theory
+
+### Simpson 3/8 Rule Code
+```cpp
+code here
+```
+### Simpson 3/8 Rule Input
+```
+input here
+```
+### Simpson 3/8 Rule Output
+```
+output here
+```
+---
+
+### Differentiation
+
+### Differentiation Theory
+
+### Differentiation Code
+```cpp
+code here
+```
+### Differentiation Input
+```
+input here
+```
+### Differentiation Output
+```
+output here
+```
+---
+
+### Ordinary Differential Equation
+
+### Runge Kutta Method
+
+### Runge Kutta Theory
+
+### Runge Kutta Code
+```cpp
+code here
+```
+### Runge Kutta Input
+```
+input here
+```
+### Runge Kutta Output
 ```
 output here
 ```
