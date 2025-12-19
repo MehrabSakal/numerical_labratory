@@ -724,15 +724,65 @@ output here
 
 ### Linear Regression Code
 ```cpp
-code here
+#include <bits/stdc++.h>
+#include <fstream>
+using namespace std;
+
+int main() {
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+    int n;
+    cout << "Enter number of data points: ";
+    cin >> n;
+
+    vector<double> x(n), y(n);
+
+    cout << "Enter x values:\n";
+    for (int i = 0; i < n; i++) cin >> x[i];
+
+    cout << "Enter y values:\n";
+    for (int i = 0; i < n; i++) cin >> y[i];
+
+    double sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+
+    for (int i = 0; i < n; i++) {
+        sumX += x[i];
+        sumY += y[i];
+        sumXY += x[i] * y[i];
+        sumX2 += x[i] * x[i];
+    }
+
+
+    double m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+    double c = (sumY - m * sumX) / n;
+
+    cout << "\nLinear Regression Line:\n";
+    cout << "y = " << m << "x + " << c << endl;
+
+
+    double x_new;
+    cout << "\nEnter value of x to estimate y: ";
+    cin >> x_new;
+
+    double y_est = m * x_new + c;
+
+    cout << "Estimated y = " << y_est << endl;
+
+    return 0;
+}
 ```
 ### Linear Regression Input
 ```
-input here
+5
+1 2 3 4 5
+3 5 7 9 11
+6
 ```
 ### Linear Regression Output
 ```
-output here
+Linear Regression Line:
+y = 2x + 1
+Estimated y = 13
 ```
 ---
 
@@ -742,15 +792,91 @@ output here
 
 ### Transcendental Regression Code
 ```cpp
-code here
+
+
+
+
+
+
+
+
+
+
+
+#include <bits/stdc++.h>
+#include<fstream>
+
+using namespace std;
+
+int main() {
+      ifstream in("input.txt");
+    ofstream out("output.txt");
+    int n;
+    cout << "Enter number of data points: ";
+    cin >> n;
+
+    vector<double> x(n), y(n);
+
+    cout << "Enter x values:\n";
+    for (int i = 0; i < n; i++) cin >> x[i];
+
+    cout << "Enter y values:\n";
+    for (int i = 0; i < n; i++) cin >> y[i];
+
+
+    vector<double> Y(n);
+    for (int i = 0; i < n; i++) {
+        if (y[i] <= 0) {
+            cout << "Error: y values must be positive for exponential regression.\n";
+            return 0;
+        }
+        Y[i] = log(y[i]);
+    }
+
+
+    double sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+
+    for (int i = 0; i < n; i++) {
+        sumX  += x[i];
+        sumY  += Y[i];
+        sumXY += x[i] * Y[i];
+        sumX2 += x[i] * x[i];
+    }
+
+
+    double b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+    double C = (sumY - b * sumX) / n;
+
+
+    double a = exp(C);
+
+    cout << "\nExponential Regression Model:\n";
+    cout << "y = " << a << " * e^(" << b << "x)\n";
+
+
+    double x_new;
+    cout << "\nEnter value of x to estimate y: ";
+    cin >> x_new;
+
+    double y_est = a * exp(b * x_new);
+
+    cout << "Estimated y = " << y_est << endl;
+
+    return 0;
+}
 ```
 ### Transcendental Regression Input
 ```
-input here
+5
+0 1 2 3 4
+2.0 2.7 3.6 4.9 6.7
+2.5
 ```
 ### Transcendental Regression Output
 ```
-output here
+Exponential Regression Model:
+y = 1.99163 * e^(0.30139x)
+Estimated y = 4.23097
 ```
 ---
 
@@ -760,15 +886,161 @@ output here
 
 ### Polynomial Regression Code
 ```cpp
-code here
+
+#include <bits/stdc++.h>
+#include<fstream>
+using namespace std;
+
+
+vector<double> gaussElimination(vector<vector<double>> A, vector<double> B) {
+    int n = A.size();
+
+    for (int i = 0; i < n; i++) {
+
+        for (int k = i + 1; k < n; k++) {
+            if (fabs(A[i][i]) < fabs(A[k][i])) {
+                swap(A[i], A[k]);
+                swap(B[i], B[k]);
+            }
+        }
+
+
+        for (int k = i + 1; k < n; k++) {
+            double factor = A[k][i] / A[i][i];
+            for (int j = 0; j < n; j++) {
+                A[k][j] -= factor * A[i][j];
+            }
+            B[k] -= factor * B[i];
+        }
+    }
+
+
+    vector<double> x(n);
+    for (int i = n - 1; i >= 0; i--) {
+        x[i] = B[i];
+        for (int j =0; j < n; j++) {
+                if(i!=j)x[i] -= A[i][j] * x[j];
+        }
+        x[i] /= A[i][i];
+    }
+    return x;
+}
+
+
+int main() {
+      ifstream in("input.txt");
+    ofstream out("output.txt");
+    int n, degree;
+    cout << "Enter number of data points: ";
+    cin >> n;
+
+    vector<double> x(n), y(n);
+
+    cout << "Enter x values:\n";
+    for (int i = 0; i < n; i++) cin >> x[i];
+
+    cout << "Enter y values:\n";
+    for (int i = 0; i < n; i++) cin >> y[i];
+
+    cout << "Enter degree of polynomial: ";
+    cin >> degree;
+
+    int m = degree + 1;
+
+    vector<vector<double>> A(m, vector<double>(m, 0));
+    vector<double> B(m, 0);
+    vector<double> powX(2 * degree + 1, 0);
+
+
+    for (int i = 0; i < n; i++) {
+        double v = 1;
+        for (int j = 0; j <= 2 * degree; j++) {
+            powX[j] += v;
+            v *= x[i];
+        }
+    }
+
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            A[i][j] = powX[i + j];
+        }
+    }
+
+
+    for (int i = 0; i < n; i++) {
+        double v = 1;
+        for (int j = 0; j < m; j++) {
+            B[j] += v * y[i];
+            v *= x[i];
+        }
+    }
+
+
+    vector<double> coeff = gaussElimination(A, B);
+
+    cout << "\nPolynomial Coefficients:\n";
+    for (int i = 0; i < m; i++) {
+        cout << "a" << i << " = " << coeff[i] << endl;
+    }
+
+
+    cout << "\nPolynomial Equation:\n";
+    cout << "y = ";
+
+    for (int i = 0; i < m; i++) {
+
+        if (i == 0) {
+            cout << coeff[i];
+        } else {
+            if (coeff[i] >= 0)
+                cout << " + " << coeff[i];
+            else
+                cout << " - " << fabs(coeff[i]);
+        }
+
+
+        if (i >= 1) {
+            cout << "x";
+            if (i > 1) cout << "^" << i;
+        }
+    }
+    cout << endl;
+
+
+    double x_new;
+    cout << "\nEnter value of x to estimate y: ";
+    cin >> x_new;
+
+    double y_est = 0, p = 1;
+    for (int i = 0; i < m; i++) {
+        y_est += coeff[i] * p;
+        p *= x_new;
+    }
+
+    cout << "Estimated y = " << y_est << endl;
+
+    return 0;
+}
 ```
 ### Polynomial Regression Input
 ```
-input here
+5
+0 1 2 3 4
+1 4 9 16 25
+2
+2.5
 ```
 ### Polynomial Regression Output
 ```
-output here
+Polynomial Coefficients:
+a0 = 1
+a1 = 2
+a2 = 1
+
+Polynomial Equation:
+y = 1 + 2x + 1x^2
+Estimated y = 12.25
 ```
 ---
 
