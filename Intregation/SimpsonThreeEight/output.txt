@@ -1,0 +1,12 @@
+===========================
+f(x) = 1x^3 + 1x^1 + 1
+
+Forward Difference Table:
+           1            2            6            6
+           3            8           12
+          11           20
+          31
+
+Integral (Simpson 3/8 Rule) = 27.75
+f'(p) = 13
+f''(p) = 12
