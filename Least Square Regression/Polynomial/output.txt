@@ -1,0 +1,8 @@
+Polynomial Coefficients:
+a0 = 1
+a1 = 2
+a2 = 1
+
+Polynomial Equation:
+y = 1 + 2x + 1x^2
+Estimated y = 12.25
