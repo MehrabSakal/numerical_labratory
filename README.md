@@ -33,6 +33,17 @@
     - [Code](#false-position-code)
     - [Input](#false-position-input)
     - [Output](#false-position-output)
+  - [Newton Rapson Method](#newton-rapson-method)
+    - [Theory](#newton-rapson-theory)
+    - [Code](#newton-rapson-code)
+    - [Input](#newton-rapson-input)
+    - [Output](#newton-rapson-output)
+  - [Secant Method](#secant-method)
+    - [Theory](#secant-theory)
+    - [Code](#secant-code)
+    - [Input](#secant-input)
+    - [Output](#secant-output)
+  
 
 ---
 
@@ -492,4 +503,38 @@ Iteration: 30
 ```
 
 ---
+### Newton Rapson Method
 
+### Newton Rapson Theory
+
+### Newton Rapson Code
+```cpp
+code here
+```
+### Newton Rapson Input
+```
+input here
+```
+### Newton Rapson Output
+```
+output here
+```
+---
+
+### Secant Method
+
+### Secant Theory
+
+### Secant Code
+```cpp
+code here
+```
+### Secant Input
+```
+input here
+```
+### Secant Output
+```
+output here
+```
+---
