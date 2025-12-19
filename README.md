@@ -910,17 +910,6 @@ Estimated y = 13
 
 ### Transcendental Regression Code
 ```cpp
-
-
-
-
-
-
-
-
-
-
-
 #include <bits/stdc++.h>
 #include<fstream>
 
@@ -1004,7 +993,6 @@ Estimated y = 4.23097
 
 ### Polynomial Regression Code
 ```cpp
-
 #include <bits/stdc++.h>
 #include<fstream>
 using namespace std;
