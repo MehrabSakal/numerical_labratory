@@ -1,0 +1,8 @@
+Detected roots:
+Root = 1.32472   Iterations = 4
+
+
+Detected roots:
+Root = 1   Iterations = 6
+Root = 2   Iterations = 3
+Root = 3   Iterations = 5
