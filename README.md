@@ -1201,6 +1201,86 @@ Root:2.0000 Iteration:1
 
 ### Secant Theory
 
+The Secant Method is a numerical technique used to determine the root of a non-linear equation of the form f(x) = 0. Unlike the Bisection or False Position methods, the Secant Method does not require the function to change sign over an interval, and it uses two initial approximations that are close to the root.
+
+### Initial Guesses
+
+Let the initial guesses be:
+
+x₀ and x₁
+
+### Iterative Formula
+
+The next approximation of the root is computed using the formula:
+
+xₙ₊₁ = xₙ - f(xₙ) · (xₙ - xₙ₋₁) / (f(xₙ) - f(xₙ₋₁))
+
+Here, xₙ₊₁ is the intersection of the secant line passing through the points (xₙ₋₁, f(xₙ₋₁)) and (xₙ, f(xₙ)) with the x-axis.
+
+### Iteration Process
+
+The process is repeated iteratively, updating the two previous approximations as follows:
+
+xₙ₋₁ ← xₙ
+xₙ ← xₙ₊₁
+
+until the difference between successive approximations becomes smaller than a prescribed tolerance:
+
+|xₙ₊₁ - xₙ| < ε
+
+or the absolute value of the function at the current approximation satisfies:
+
+|f(xₙ₊₁)| < ε
+
+### Algorithm Steps
+
+1. Start with two initial guesses x₀ and x₁
+2. Compute f(xₙ₋₁) and f(xₙ)
+3. Calculate the next approximation:
+
+   xₙ₊₁ = xₙ - f(xₙ) · (xₙ - xₙ₋₁) / (f(xₙ) - f(xₙ₋₁))
+
+4. Check convergence criteria:
+   - If |xₙ₊₁ - xₙ| < ε or |f(xₙ₊₁)| < ε, stop
+   - Otherwise, update: xₙ₋₁ = xₙ, xₙ = xₙ₊₁ and repeat from step 2
+
+### Convergence Characteristics
+
+The Secant Method typically converges faster than the Bisection Method, although it may fail to converge if the initial guesses are not sufficiently close to the root. It is particularly useful when derivative information is not available, unlike the Newton-Raphson Method.
+
+**May fail to converge if:**
+* The initial guesses are not sufficiently close to the root
+* f(xₙ) - f(xₙ₋₁) ≈ 0 (division by near-zero value)
+* The function has multiple roots or discontinuities near the initial guesses
+
+### Input Characteristics
+
+1. The first line contains two real numbers for the initial guesses:
+
+   L  R
+
+   representing x₀ and x₁.
+
+2. The second line contains the allowed error (tolerance):
+
+   ε
+
+### Output Characteristics
+
+* The approximate root of the function is displayed.
+* For each iteration, the corresponding values and the approximate root are shown.
+
+### Advantages
+
+* **No derivative required** - Unlike Newton-Raphson Method
+* **Faster than Bisection** - Super-linear convergence rate
+* **No sign change required** - Unlike Bisection or False Position methods
+
+### Disadvantages
+
+* **Requires two initial guesses** - Both should be close to the root
+* **May diverge** - If initial guesses are poor or function is problematic
+* **Division by zero risk** - When f(xₙ) = f(xₙ₋₁)
 ### Secant Code
 ```cpp
 
