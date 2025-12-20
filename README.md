@@ -2160,7 +2160,43 @@ The relative error of f''(p) = 17.384%
 
 ### Runge Kutta Code
 ```cpp
-code here
+#include<bits/stdc++.h>
+using namespace std;
+
+double dydx(double x, double y)
+{
+    return x + y*y;
+}
+
+double rungekutta(double x0, double y0, double xp, double h)
+{
+    double x = x0;
+    double y = y0;
+
+    while (x < xp)
+    {
+        double k1 = h * dydx(x, y);
+        double k2 = h * dydx(x + 0.5*h, y + 0.5*k1);
+        double k3 = h * dydx(x + 0.5*h, y + 0.5*k2);
+        double k4 = h * dydx(x + h, y + k3);
+
+        y = y + (1.0/6.0)*(k1 + 2*k2 + 2*k3 + k4);
+        x += h;
+    }
+    return y;
+}
+
+int main()
+{
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+
+    double x0, y0, xp, h;
+    cin >> x0 >> y0 >> xp >> h;
+
+    cout << "Result: " << rungekutta(x0, y0, xp, h);
+}
+
 ```
 ### Runge Kutta Input
 ```
