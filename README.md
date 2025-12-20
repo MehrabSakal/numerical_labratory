@@ -2569,6 +2569,65 @@ f''(p) = 2
 
 ### Simpson 3/8 Rule Theory
 
+Simpson's 3/8th Rule is a numerical integration method used to approximate the definite integral of a function when the integrand is known at equally spaced points. This method is an extension of Simpson's Rule and provides good accuracy for smooth functions.
+
+### Interval Division
+
+Let the interval of integration be [a, b] and divide it into n equal subintervals, where the width of each subinterval is given by:
+
+h = (b - a) / n, where n is a multiple of 3
+
+### Ordinates
+
+Let the ordinates of the function be:
+
+y₀ = f(a), y₁ = f(a + h), y₂ = f(a + 2h), …, yₙ = f(b)
+
+### Simpson's 3/8th Rule Formula
+
+Then the Simpson's 3/8th Rule formula is given by:
+
+∫ₐᵇ f(x)dx ≈ (3h/8)[y₀ + yₙ + 3(y₁ + y₂ + y₄ + y₅ + ⋯ + yₙ₋₁) + 2(y₃ + y₆ + ⋯ + yₙ₋₃)]
+
+### Formula Breakdown
+
+The formula can be written as:
+
+∫ₐᵇ f(x)dx ≈ (3h/8)[First + Last + 3×(Sum of non-multiples of 3) + 2×(Sum of multiples of 3)]
+
+Where:
+* First ordinate: y₀
+* Last ordinate: yₙ
+* Non-multiples of 3: y₁, y₂, y₄, y₅, y₇, y₈, …, yₙ₋₁
+* Multiples of 3 (excluding first and last): y₃, y₆, y₉, …, yₙ₋₃
+
+### Algorithm Steps
+
+1. Verify that n is a multiple of 3
+2. Calculate the width of each subinterval: h = (b - a) / n
+3. Compute all ordinates: y₀, y₁, y₂, …, yₙ
+4. Sum the ordinates at positions not divisible by 3: S₃ = y₁ + y₂ + y₄ + y₅ + ⋯ + yₙ₋₁
+5. Sum the ordinates at positions divisible by 3 (excluding first and last): S₂ = y₃ + y₆ + y₉ + ⋯ + yₙ₋₃
+6. Apply the formula: Result = (3h/8)[y₀ + yₙ + 3×S₃ + 2×S₂]
+
+### Conditions for Applicability
+
+This method is applicable when:
+* The function is **continuous and smooth** over the interval of integration
+* The number of subintervals **n is a multiple of 3**
+* The data points are **equally spaced**
+
+### Advantages
+
+* **Good accuracy** - Provides accurate results for smooth functions
+* **Alternative to 1/3 rule** - Useful when n is a multiple of 3 but not even
+* **Exact for polynomials** - Gives exact results for polynomials up to degree 3
+
+### Disadvantages
+
+* **Requires n divisible by 3** - Number of subintervals must be a multiple of 3
+* **Equal spacing required** - Data points must be equally spaced
+* **Less commonly used** - Simpson's 1/3rd Rule is more popular when applicable
 ### Simpson 3/8 Rule Code
 ```cpp
 
