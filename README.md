@@ -2344,6 +2344,51 @@ The relative error of f''(p) = 17.384%
 ### Runge Kutta Method
 
 ### Runge Kutta Theory
+## The Runge-Kutta Method (RK4)
+
+### 1. Introduction
+The Runge-Kutta methods are a family of iterative methods used to approximate solutions to Ordinary Differential Equations (ODEs). The most widely used version is the **Fourth-Order Runge-Kutta (RK4)** method. It is far more accurate than the simple Euler's method because it takes four different slope measurements for every single step forward.
+
+### 2. Mathematical Principle
+Given a differential equation of the form:
+$$\frac{dy}{dx} = f(x, y)$$
+
+We want to find the value of $y$ at a future point. RK4 works by calculating a weighted average of four different slopes ($k_1, k_2, k_3, k_4$) within one step interval $h$.
+
+
+
+**The Four Slopes:**
+1.  **$k_1$ (Start Slope):** The slope at the beginning of the interval.
+2.  **$k_2$ (Midpoint Slope 1):** The slope at the midpoint, using $k_1$ to estimate $y$.
+3.  **$k_3$ (Midpoint Slope 2):** Another slope at the midpoint, but using $k_2$ to improve the estimate.
+4.  **$k_4$ (End Slope):** The slope at the end of the interval.
+
+### 3. The Formulas
+To move from a point $(x_n, y_n)$ to the next point $(x_{n+1}, y_{n+1})$ with a step size $h$:
+
+$$k_1 = h \cdot f(x_n, y_n)$$
+$$k_2 = h \cdot f(x_n + \frac{h}{2}, y_n + \frac{k_1}{2})$$
+$$k_3 = h \cdot f(x_n + \frac{h}{2}, y_n + \frac{k_2}{2})$$
+$$k_4 = h \cdot f(x_n + h, y_n + k_3)$$
+
+**The Final Update Formula:**
+$$y_{n+1} = y_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)$$
+
+*(Note: The middle slopes $k_2$ and $k_3$ are given more weight because they represent the "average" behavior in the center of the step.)*
+
+### 4. The Algorithm Steps
+1.  **Define:** Start with an initial condition $(x_0, y_0)$, a step size $h$, and the target $x$ value.
+2.  **Loop:** While $x < target$:
+    * Calculate $k_1, k_2, k_3, k_4$ using the formulas above.
+    * Calculate the new $y$ value: $y_{new} = y_{old} + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)$.
+    * Update $x$: $x_{new} = x_{old} + h$.
+3.  **Repeat:** Continue until the target $x$ is reached.
+
+### 5. Accuracy and Convergence
+* **Order of Accuracy:** Fourth-order ($O(h^4)$). This means if you halve the step size $h$, the error decreases by a factor of 16 ($2^4$).
+* **Stability:** It is much more stable and accurate than Euler's method or the Midpoint method for the same step size.
+
+
 
 ### Runge Kutta Code
 ```cpp
