@@ -2785,6 +2785,54 @@ f''(p) = 12
 
 ### Differentiation by forward Theory
 
+Forward interpolation-based differentiation is a numerical technique used to approximate the first and second derivatives of a function when the function values are known at equally spaced points. This method is especially suitable when the point of differentiation lies near the beginning of the data table.
+
+### Step Size
+
+Let the tabulated values be equally spaced with step size:
+
+h = xᵢ₊₁ - xᵢ
+
+### Definition of u
+
+u = (p - x₀) / h
+
+where:
+* p is the point at which differentiation is required
+* x₀ is the first tabulated value
+
+### Newton's Forward Interpolation Formula
+
+From Newton's Forward Interpolation formula:
+
+y(x) = y₀ + uΔy₀ + [u(u-1) / 2!]Δ²y₀ + [u(u-1)(u-2) / 3!]Δ³y₀ + ⋯
+
+### First Derivative Formula
+
+Using Newton's Forward Interpolation Differentiation Formula, the first derivative at point p is:
+
+f'(p) = (1/h)[Δy₀ + [(2u-1) / 2]Δ²y₀ + [(3u²-6u+2) / 6]Δ³y₀ + [(4u³-18u²+14u-6) / 24]Δ⁴y₀ + ⋯]
+
+### Second Derivative Formula
+
+The second derivative at point p is given by:
+
+f''(p) = (1/h²)[Δ²y₀ + (u-1)Δ³y₀ + [(12u²-36u+14) / 24]Δ⁴y₀ + ⋯]
+
+### Algorithm Steps
+
+1. Construct the forward difference table:
+   - First differences: Δyᵢ = yᵢ₊₁ - yᵢ
+   - Second differences: Δ²yᵢ = Δyᵢ₊₁ - Δyᵢ
+   - Continue for higher order differences
+2. Calculate u = (p - x₀) / h
+3. For first derivative: Substitute u and differences into f'(p) formula
+4. For second derivative: Substitute u and differences into f''(p) formula
+
+### Error Calculation
+
+Relative Error (%) = |Exact Value - Numerical Value| / |Exact Value| × 100
+
 ### Differentiation by forward Code
 ```cpp
 #include <bits/stdc++.h>
