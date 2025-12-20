@@ -1868,19 +1868,36 @@ f''(p) = 12
 ```
 ---
 
-### Differentiation
+### Differentiation by forward
 
-### Differentiation Theory
+### Differentiation by forward Theory
 
-### Differentiation Code
+### Differentiation by forward Code
 ```cpp
 code here
 ```
-### Differentiation Input
+### Differentiation by forward Input
 ```
 input here
 ```
-### Differentiation Output
+### Differentiation by forward Output
+```
+output here
+```
+---
+### Differentiation by backward
+
+### Differentiation by backward Theory
+
+### Differentiation by backward Code
+```cpp
+code here
+```
+### Differentiation by backward Input
+```
+input here
+```
+### Differentiation by backward Output
 ```
 output here
 ```
