@@ -1983,15 +1983,115 @@ The relative error of f''(p) = 0.000%
 
 ### Differentiation by backward Code
 ```cpp
-code here
+#include <bits/stdc++.h>
+using namespace std;
+
+double func(double x){
+    return ( pow(sin(x),5) + 4*pow(sin(x),4) + 1 );
+}
+
+double dfunc(double x){
+    return ( 5*pow(sin(x),4)*cos(x) + 16*pow(sin(x),3)*cos(x) );
+}
+
+double ddfunc(double x){
+    return ( -5*pow(sin(x),5) + 20*pow(sin(x),3)*pow(cos(x),2) - 16*pow(sin(x),4) + 48*pow(sin(x),2)*pow(cos(x),2) );
+}
+
+int main() {
+    ifstream fin("input.txt");
+    ofstream fout("output.txt");
+
+    if(!fin){
+        cout<<"Error: input.txt not found!"<<endl;
+        return 0;
+    }
+    if(!fout){
+        cout<<"Error: Can't open output.txt!"<<endl;
+        return 0;
+    }
+    
+    fout<<fixed<<setprecision(3);
+    double upperLimit, lowerLimit, p;
+    int n;
+    fin>>upperLimit>>lowerLimit>>n>>p;
+
+    double h = (upperLimit - lowerLimit) / n;
+
+    double x[n], y[n][n];
+    for(int i=0; i<n; i++){
+        x[i] = lowerLimit + i*h;
+    }
+    for(int i=0; i<n; i++){
+        y[i][0] = func(x[i]);
+    }
+
+    for(int j=1; j<n; j++){
+        for(int i=n-1; i>=j; i--){
+            y[i][j] = y[i][j-1] - y[i-1][j-1];
+        }
+    }
+
+    fout<<"\nThe difference table is : \n";
+    for(int i=0; i<n; i++){
+        fout<<x[i]<<"\t";
+        for(int j=0; j<=i; j++){
+            fout<<y[i][j]<<"\t";
+        }
+        fout<<endl;
+    }
+
+    double d = x[1] - x[0];
+    double v = (p - x[n-1]) / d;
+
+    double y1 = ( y[n-1][1] + ((2*v + 1)/2)*y[n-1][2] + ((3*v*v + 6*v+ 2)/6)*y[n-1][3] + ((4*v*v*v + 18*v*v + 22*v + 6)/24)*y[n-1][4] ) / d;
+    fout<<"\nThe value of f'(p) is = "<<y1<<endl;
+
+    double y2 = ( y[n-1][2] + (v+1)*y[n-1][3] + ((12*v*v + 36*v + 22)/24)*y[n-1][4] ) / (d*d);
+    fout<<"\nThe value of f''(p) is = "<<y2<<endl;
+
+    double err1 = ( abs(dfunc(p) - y1) / abs(dfunc(p)) ) * 100;
+    double err2 = ( abs(ddfunc(p) - y2) / abs(ddfunc(p)) ) * 100;
+    fout<<"\nThe relative error of f'(p) = "<<err1<<"%\n";
+    fout<<"\nThe relative error of f''(p) = "<<err2<<"%\n";
+
+    fin.close();
+    fout.close();
+    return 0;
+}
 ```
 ### Differentiation by backward Input
 ```
-input here
+5 0 15 4.5
 ```
 ### Differentiation by backward Output
 ```
-output here
+
+The difference table is : 
+0.000	1.000	
+0.333	1.050	0.050	
+0.667	1.675	0.626	0.576	
+1.000	3.427	1.752	1.126	0.550	
+1.333	5.437	2.010	0.257	-0.869	-1.419	
+1.667	5.904	0.467	-1.542	-1.800	-0.931	0.489	
+2.000	4.356	-1.548	-2.015	-0.473	1.326	2.257	1.768	
+2.333	2.291	-2.065	-0.517	1.499	1.972	0.646	-1.611	-3.380	
+2.667	1.195	-1.096	0.969	1.486	-0.013	-1.985	-2.631	-1.019	2.360	
+3.000	1.002	-0.193	0.903	-0.066	-1.551	-1.538	0.447	3.078	4.097	1.737	
+3.333	1.005	0.003	0.197	-0.706	-0.641	0.910	2.449	2.002	-1.076	-5.173	-6.910	
+3.667	1.221	0.216	0.213	0.016	0.722	1.363	0.453	-1.996	-3.997	-2.922	2.251	9.161	
+4.000	2.064	0.843	0.627	0.415	0.399	-0.324	-1.687	-2.139	-0.144	3.854	6.775	4.524	-4.637	
+4.333	3.288	1.224	0.381	-0.246	-0.661	-1.060	-0.736	0.951	3.090	3.234	-0.620	-7.396	-11.920	-7.283	
+4.667	3.989	0.701	-0.523	-0.903	-0.657	0.004	1.064	1.800	0.850	-2.240	-5.474	-4.854	2.542	14.462	21.745	
+
+The value of f'(p) is = 2.298
+
+The value of f''(p) is = -10.493
+
+The relative error of f'(p) = 5.023%
+
+The relative error of f''(p) = 17.384%
+
 ```
 ---
 
