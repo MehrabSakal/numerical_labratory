@@ -291,7 +291,58 @@ Root: 1.185
 ### Gauss Jordan Elimination Method
 
 #### Gauss Jordan Theory
-[Add your theory content here]
+
+### 1. Introduction
+The Gauss-Jordan Elimination method is a variation of Gauss Elimination. While Gauss Elimination stops when the matrix is in "Upper Triangular" form (Row Echelon Form), Gauss-Jordan continues the process to convert the matrix into a **Diagonal Matrix** (Reduced Row Echelon Form).
+
+This means that after the operations are complete, the values of the unknowns can be read directly from the rightmost column without needing any "Back Substitution."
+
+
+
+### 2. Mathematical Principle
+Given an augmented matrix $[A|b]$, the goal is to transform the matrix $A$ into the **Identity Matrix** $I$.
+
+$$
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} & | & b_1 \\
+a_{21} & a_{22} & a_{23} & | & b_2 \\
+a_{31} & a_{32} & a_{33} & | & b_3
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+1 & 0 & 0 & | & x_1 \\
+0 & 1 & 0 & | & x_2 \\
+0 & 0 & 1 & | & x_3
+\end{bmatrix}
+$$
+
+Once the left side becomes the Identity Matrix, the right side automatically becomes the solution vector $x$.
+
+### 3. The Algorithm Steps
+1.  **Augment:** Form the augmented matrix $[A|b]$.
+2.  **Iterate:** For each column $j$ (from 1 to $n$):
+    * **Normalize Pivot:** Divide the entire row $j$ by the pivot element $A_{jj}$ so that the pivot becomes 1.
+        $$Row_j = \frac{Row_j}{A_{jj}}$$
+    * **Eliminate Other Rows:** For **every other** row $i$ (where $i \neq j$):
+        * Subtract a multiple of the pivot row from row $i$ to make the element $A_{ij}$ zero.
+        * $Row_i = Row_i - (A_{ij} \times Row_j)$
+
+3.  **Result:** The final column contains the solution values $x_1, x_2, \dots, x_n$.
+
+### 4. Complexity and Analysis
+* **Time Complexity:** $O(n^3)$.
+* **Comparison:** It requires approximately **50% more operations** than standard Gauss Elimination because you must eliminate entries *above* the diagonal as well as below it.
+* **Matrix Inversion:** This method is the standard way to find the **Inverse of a Matrix**. If you augment $A$ with the Identity Matrix $[A|I]$ and apply Gauss-Jordan, the result is $[I|A^{-1}]$.
+
+### 5. Advantages vs. Disadvantages
+
+**Advantages**
+* **Direct Solution:** No back substitution step is required.
+* **Matrix Inversion:** It is excellent for calculating the inverse of a matrix.
+
+**Disadvantages**
+* **Inefficient for Systems:** For simply solving equations ($Ax=b$), it is slower than Gauss Elimination.
+* **More Round-off Error:** Since it performs more arithmetic operations, there is a higher chance of accumulated floating-point errors.
 
 #### Gauss Jordan Code
 ```cpp
