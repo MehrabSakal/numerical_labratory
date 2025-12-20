@@ -2363,7 +2363,65 @@ The result is: 15.625000
 ### Simpson 1/3 Rule
 
 ### Simpson 1/3 Rule Theory
+Simpson's 1/3rd Rule is a numerical integration method used to approximate the definite integral of a function when the integrand is known at equally spaced points. This method provides better accuracy than the Trapezoidal Rule for smooth functions.
 
+### Interval Division
+
+Let the interval of integration be [a, b] and divide it into an even number of subintervals n, where the width of each subinterval is given by:
+
+h = (b - a) / n, where n is even
+
+### Ordinates
+
+Let the ordinates of the function be:
+
+y₀ = f(a), y₁ = f(a + h), y₂ = f(a + 2h), …, yₙ = f(b)
+
+### Simpson's 1/3rd Rule Formula
+
+Then the Simpson's 1/3rd Rule formula is given by:
+
+∫ₐᵇ f(x)dx ≈ (h/3)[y₀ + yₙ + 4(y₁ + y₃ + ⋯ + yₙ₋₁) + 2(y₂ + y₄ + ⋯ + yₙ₋₂)]
+
+### Formula Breakdown
+
+The formula can be written as:
+
+∫ₐᵇ f(x)dx ≈ (h/3)[First + Last + 4×(Sum of odd ordinates) + 2×(Sum of even ordinates)]
+
+Where:
+* First ordinate: y₀
+* Last ordinate: yₙ
+* Odd ordinates: y₁, y₃, y₅, …, yₙ₋₁
+* Even ordinates: y₂, y₄, y₆, …, yₙ₋₂
+
+### Algorithm Steps
+
+1. Verify that n is even
+2. Calculate the width of each subinterval: h = (b - a) / n
+3. Compute all ordinates: y₀, y₁, y₂, …, yₙ
+4. Sum the odd ordinates: S_odd = y₁ + y₃ + y₅ + ⋯ + yₙ₋₁
+5. Sum the even ordinates: S_even = y₂ + y₄ + y₆ + ⋯ + yₙ₋₂
+6. Apply the formula: Result = (h/3)[y₀ + yₙ + 4×S_odd + 2×S_even]
+
+### Conditions for Applicability
+
+This method is applicable when:
+* The function is **continuous and smooth** over the interval of integration
+* The number of subintervals **n is even**
+* The data points are **equally spaced**
+
+### Advantages
+
+* **Higher accuracy** - More accurate than Trapezoidal Rule for smooth functions
+* **Simple implementation** - Easy to program and compute
+* **Exact for polynomials** - Gives exact results for polynomials up to degree 3
+
+### Disadvantages
+
+* **Requires even n** - Number of subintervals must be even
+* **Equal spacing required** - Data points must be equally spaced
+* **Less accurate for irregular functions** - Performance degrades for functions with discontinuities or sharp changes
 ### Simpson 1/3 Rule Code
 ```cpp
 #include <bits/stdc++.h>
