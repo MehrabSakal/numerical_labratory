@@ -441,9 +441,9 @@ Root: 1.185
 
 ---
 
-### LU Decomposition Method
+## LU Decomposition Method
 
-#### LU Decomposition Theory
+### LU Decomposition Theory
 
 ### 1. Introduction
 LU Decomposition is a method used to solve systems of linear equations by factoring a matrix into two simpler triangular matrices. It transforms a square matrix $A$ into the product of a **Lower triangular matrix ($L$)** and an **Upper triangular matrix ($U$)**.
@@ -639,10 +639,9 @@ No Solution
 
 ---
 
-### Matrix Inversion
+## Matrix Inversion
 
-#### Matrix Inversion Theory
-# Matrix Inversion Method
+### Matrix Inversion Theory
 
 Matrix Inversion is a numerical method used to solve a system of linear equations of the form:
 
@@ -860,11 +859,11 @@ Inverse Matrix (by Adjoint Method):
 
 ---
 
-### Solution of Non-Linear Equations
+## Solution of Non-Linear Equations
 
-### Bisection Method
+## Bisection Method
 
-#### Bisection Theory
+## Bisection Theory
 
 ### 1. Introduction
 The Bisection Method is one of the fundamental numerical techniques used to find the root of a non-linear equation f(x) = 0. It is classified as a "bracketing method" because it requires two initial guesses that bracket (enclose) the root. It is widely used due to its simplicity and guaranteed convergence for continuous functions.
@@ -1039,10 +1038,9 @@ Iteration: 13
 
 ---
 
-### False Position Method
+## False Position Method
 
 #### False Position Theory
-## The False Position Method (Regula Falsi)
 
 ### 1. Introduction
 The False Position Method (or *Regula Falsi*) is a root-finding algorithm that combines features of the Bisection Method and the Secant Method. Like Bisection, it is a "bracketing method" (requires two initial guesses with opposite signs), but instead of blindly taking the midpoint, it uses a linear interpolation to estimate the root position. This often results in faster convergence.
