@@ -1408,15 +1408,90 @@ Estimated y = 12.25
 
 ### Newton Forward Code
 ```cpp
-code here
+#include<bits/stdc++.h>
+using namespace std;
+
+double u_cal(double u, int n){
+    double temp = u;
+    for(int i = 1; i < n; i++){
+        temp *= (u - i);
+    }
+    return temp;
+}
+
+double fact(int n){
+    double temp = 1;
+    for(int i = 1; i <= n; i++){
+        temp *= i;
+    }
+    return temp;
+}
+
+int main(){
+    ifstream in("input.txt");
+    ofstream out("output.txt");
+
+    out << fixed << setprecision(3);
+
+    int n;
+    in >> n;
+
+    vector<double> x(n);
+    vector<vector<double>> y(n, vector<double>(n));
+
+    for(int i = 0; i < n; i++){
+        in >> x[i];
+    }
+    for(int i = 0; i < n; i++){
+        in >> y[i][0];
+    }
+
+    for(int i = 1; i < n; i++){
+        for(int j = 0; j < n - i; j++){
+            y[j][i] = y[j + 1][i - 1] - y[j][i - 1];
+        }
+    }
+
+    for(int i = 0; i < n; i++){
+        out << x[i] << " ";
+        for(int j = 0; j < n; j++){
+            out << y[i][j] << " ";
+        }
+        out << endl;
+    }
+
+    double value;
+    in >> value;
+
+    double h = x[1] - x[0];
+    double u = (value - x[0]) / h;
+
+    double sum = y[0][0];
+
+    for(int i = 1; i < n; i++){
+        sum += (u_cal(u, i) * y[0][i]) / fact(i);
+    }
+
+    out <<"\nThe result is: "<<sum<<endl;
+
+    return 0;
+}
 ```
 ### Newton Forward Input
 ```
-input here
+4
+1 2 3 4
+1 8 27 64
+2.5
 ```
 ### Newton Forward Output
 ```
-output here
+1.000 1.000 7.000 12.000 6.000 
+2.000 8.000 19.000 18.000 0.000 
+3.000 27.000 37.000 0.000 0.000 
+4.000 64.000 0.000 0.000 0.000 
+
+The result is: 15.625
 ```
 ---
 ### Newton Backward Interpolation
