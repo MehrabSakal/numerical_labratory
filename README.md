@@ -803,7 +803,60 @@ Iteration: 13
 ### False Position Method
 
 #### False Position Theory
-[Add your theory content here]
+## The False Position Method (Regula Falsi)
+
+### 1. Introduction
+The False Position Method (or *Regula Falsi*) is a root-finding algorithm that combines features of the Bisection Method and the Secant Method. Like Bisection, it is a "bracketing method" (requires two initial guesses with opposite signs), but instead of blindly taking the midpoint, it uses a linear interpolation to estimate the root position. This often results in faster convergence.
+
+### 2. Mathematical Principle
+The method relies on the concept that if a function is continuous, the root is likely closer to the point where the function value is smaller (closer to zero).
+
+Instead of cutting the interval in half, we draw a straight line (a secant line) connecting the points `(a, f(a))` and `(b, f(b))`. The point where this line crosses the x-axis is our new estimate `c`.
+
+**The Formula:**
+The new estimate `c` is calculated using:
+
+$$c = \frac{a \cdot f(b) - b \cdot f(a)}{f(b) - f(a)}$$
+
+
+
+### 3. The Algorithm Steps
+Given a function f(x) and an interval [a, b] such that f(a) and f(b) have opposite signs:
+
+1.  **Calculate Estimate:** Compute the weighted average point 'c' using the formula above.
+
+2.  **Evaluate Function:** Calculate the value of f(c).
+
+3.  **Check for Root:**
+    * If f(c) is 0 (or within tolerance), stop. 'c' is the root.
+
+4.  **Update Interval:**
+    * If f(a) and f(c) have **opposite signs**, the root is in the left side.
+        -> Set b = c
+    * If f(a) and f(c) have the **same sign**, the root is in the right side.
+        -> Set a = c
+
+5.  **Repeat:** Repeat steps 1-4 until the error is sufficiently small.
+
+### 4. Convergence Analysis
+* **Convergence Type:** Linear (often faster than Bisection but slower than Newton-Raphson).
+* **Behavior:** It typically converges faster than Bisection because it uses the magnitude of the function values to "aim" for the root. However, for functions with significant curvature (very convex or concave), one end of the interval can get "stuck," causing convergence to slow down significantly.
+
+### 5. Stopping Criteria
+Common conditions to stop the loop:
+1.  **Function Tolerance:** |f(c)| < epsilon
+2.  **Step Tolerance:** |c_new - c_old| < epsilon (Note: We use this instead of |b-a| because the interval width might not go to zero in False Position).
+3.  **Max Iterations:** To prevent infinite loops.
+
+### 6. Advantages vs. Disadvantages
+
+**Advantages**
+* **Guaranteed Convergence:** Like Bisection, it will always find a root if the initial interval brackets one.
+* **Faster than Bisection:** usually converges quicker because it considers the values of f(x), not just the signs.
+
+**Disadvantages**
+* **One-Sided Approach:** If the function is curved, one of the interval endpoints (a or b) might stay fixed for many iterations, causing the method to slow down.
+* **Complex Formula:** The formula is slightly more expensive to calculate than the simple average used in Bisection.
 
 #### False Position Code
 ```cpp
