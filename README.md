@@ -865,9 +865,6 @@ Inverse Matrix (by Adjoint Method):
 ### Bisection Method
 
 #### Bisection Theory
-# Numerical Methods Repository
-
-## The Bisection Method
 
 ### 1. Introduction
 The Bisection Method is one of the fundamental numerical techniques used to find the root of a non-linear equation f(x) = 0. It is classified as a "bracketing method" because it requires two initial guesses that bracket (enclose) the root. It is widely used due to its simplicity and guaranteed convergence for continuous functions.
