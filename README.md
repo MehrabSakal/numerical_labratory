@@ -111,7 +111,69 @@
 ### Gauss Elimination Method
 
 #### Gauss Elimination Theory
-[Add your theory content here]
+
+### 1. Introduction
+Gauss Elimination is a direct algorithm used to solve systems of linear equations. It transforms a system into an "upper triangular" matrix (Row Echelon Form), making it easy to solve the variables one by one from the bottom up.
+
+It consists of two main stages:
+1.  **Forward Elimination:** Converting the matrix into an upper triangular form.
+2.  **Back Substitution:** Solving for the unknowns starting from the last equation.
+
+
+
+### 2. Mathematical Principle
+Given a system of equations represented in matrix form $Ax = b$, we construct an **Augmented Matrix** $[A|b]$.
+
+The goal is to use Elementary Row Operations to transform the matrix $A$ into an Upper Triangular Matrix $U$, where all elements below the main diagonal are zero:
+
+$$
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+0 & u_{22} & u_{23} \\
+0 & 0 & u_{33}
+\end{bmatrix}
+$$
+
+### 3. The Algorithm Steps
+
+**Stage 1: Forward Elimination**
+For each column $j$ (from 1 to $n-1$):
+1.  Find a **Pivot Row** (usually the current row $i$).
+2.  For every row $k$ below the pivot row:
+    * Calculate the multiplier: $m = \frac{A_{kj}}{A_{jj}}$
+    * Subtract the pivot row scaled by $m$ from row $k$:
+      $Row_k = Row_k - m \times Row_j$
+    * This makes the element $A_{kj}$ zero.
+
+**Stage 2: Back Substitution**
+Once the matrix is upper triangular:
+1.  Solve for the last variable $x_n$ directly:
+    $x_n = \frac{b_n}{A_{nn}}$
+2.  Move upwards to row $i = n-1, n-2, \dots, 1$:
+    * Substitute the known values of $x$ found so far.
+    * Solve for $x_i$:
+      $$x_i = \frac{b_i - \sum_{j=i+1}^{n} A_{ij} x_j}{A_{ii}}$$
+
+### 4. Complexity and Pitfalls
+* **Time Complexity:** $O(n^3)$. It is computationally expensive for very large systems (e.g., thousands of equations).
+* **Division by Zero:** If a pivot element ($A_{ii}$) is zero, the calculation fails.
+* **Round-off Error:** In floating-point arithmetic, small errors can accumulate, leading to inaccurate results.
+
+### 5. Advantages vs. Disadvantages
+
+**Advantages**
+* **General Purpose:** Works for any system of linear equations (provided a unique solution exists).
+* **Exact:** Theoretically produces the exact answer (unlike iterative methods like Gauss-Seidel).
+
+**Disadvantages**
+* **Sensitivity:** Without "Partial Pivoting" (swapping rows to get the largest pivot), it is very sensitive to small errors.
+* **Destructive:** It alters the original matrix $A$. If you need $A$ later, you must copy it first.
 
 #### Gauss Elimination Code
 ```cpp
