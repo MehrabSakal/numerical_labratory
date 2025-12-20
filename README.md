@@ -444,7 +444,61 @@ Root: 1.185
 ### LU Decomposition Method
 
 #### LU Decomposition Theory
-[Add your theory content here]
+
+### 1. Introduction
+LU Decomposition is a method used to solve systems of linear equations by factoring a matrix into two simpler triangular matrices. It transforms a square matrix $A$ into the product of a **Lower triangular matrix ($L$)** and an **Upper triangular matrix ($U$)**.
+
+This method is particularly useful when you need to solve the same system of equations for multiple different result vectors, as the decomposition only needs to be done once.
+
+
+
+### 2. Mathematical Principle
+Given a square matrix $A$, we aim to find two matrices $L$ and $U$ such that:
+
+$$A = L \cdot U$$
+
+Where:
+* **$L$ (Lower Triangular):** A matrix where all elements *above* the main diagonal are zero. (Usually, the diagonal elements are set to 1).
+* **$U$ (Upper Triangular):** A matrix where all elements *below* the main diagonal are zero.
+
+**The System of Equations:**
+To solve $Ax = b$:
+1.  Substitute $A$ with $LU$:  $LUx = b$
+2.  Let $Ux = y$. Then the equation becomes: $Ly = b$
+
+This breaks the hard problem into two easy steps:
+1.  Solve $Ly = b$ for $y$ (Forward Substitution).
+2.  Solve $Ux = y$ for $x$ (Backward Substitution).
+
+### 3. The Algorithm Steps
+There are different ways to decompose the matrix (Doolittle, Crout, Cholesky). The **Doolittle Algorithm** is the most common for general use:
+
+1.  **Decomposition (Find L and U):**
+    For each row $i$ and column $j$:
+    * **Find U:** Calculate the upper triangle elements.
+        $$U_{ij} = A_{ij} - \sum_{k=0}^{i-1} L_{ik} U_{kj}$$
+    * **Find L:** Calculate the lower triangle elements.
+        $$L_{ji} = \frac{1}{U_{ii}} (A_{ji} - \sum_{k=0}^{i-1} L_{jk} U_{ki})$$
+
+2.  **Forward Substitution:**
+    Solve $Ly = b$ to find $y$. Since $L$ is lower triangular, you start from the top ($y_1$) and work down.
+
+3.  **Backward Substitution:**
+    Solve $Ux = y$ to find $x$. Since $U$ is upper triangular, you start from the bottom ($x_n$) and work up.
+
+### 4. Complexity and Conditions
+* **Computational Cost:** $O(n^3)$ for the decomposition, but only $O(n^2)$ for the substitution steps.
+* **Pivot Elements:** The method can fail if a pivot element (diagonal element $U_{ii}$) becomes zero. To prevent this, **Partial Pivoting** (swapping rows) is often added to the algorithm.
+
+### 5. Advantages vs. Disadvantages
+
+**Advantages**
+* **Efficiency for Multiple Inputs:** If you are solving $Ax = b$ for many different vectors $b$, LU is much faster than Gaussian Elimination because you decompose $A$ only once.
+* **Inversion:** It is a very efficient way to calculate the inverse of a matrix.
+
+**Disadvantages**
+* **Zero Pivots:** Basic LU decomposition fails if a diagonal element is zero (requires pivoting logic).
+* **Memory:** Requires storing two new matrices ($L$ and $U$), though in-place algorithms exist to save space.
 
 #### LU Decomposition Code
 ```cpp
