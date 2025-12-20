@@ -1840,6 +1840,55 @@ Estimated y = 12.25
 
 ### Newton Forward Theory
 
+### 1. Introduction
+Newton's Forward Interpolation is a technique used to estimate the value of a function for an intermediate point ($x$) based on a set of given data points. This method is specifically designed for datasets where the interval between points is **equal** (equidistant).
+
+It is most accurate when the point you are trying to calculate is located near the **beginning** of the dataset ($x$ is close to $x_0$).
+
+### 2. Mathematical Principle
+The method uses "Forward Differences". A forward difference is calculated by subtracting the current value from the next value:
+$$\Delta y_0 = y_1 - y_0$$
+
+
+
+**The General Formula:**
+To find $y$ at a point $x$:
+
+$$y(x) = y_0 + u \Delta y_0 + \frac{u(u-1)}{2!} \Delta^2 y_0 + \frac{u(u-1)(u-2)}{3!} \Delta^3 y_0 + \dots$$
+
+Where:
+* $y_0$: The first value in the $y$ column.
+* $\Delta y_0, \Delta^2 y_0$: The top values of the difference columns.
+* $u$: A standardized variable representing the distance from $x_0$.
+
+**Calculating 'u':**
+$$u = \frac{x - x_0}{h}$$
+
+*(Where $h$ is the constant difference between x-values, i.e., $h = x_1 - x_0$)*
+
+### 3. The Algorithm Steps
+1.  **Verify Intervals:** Ensure that the input $x$ values are equally spaced (constant step size $h$).
+2.  **Construct Difference Table:**
+    * First Order Differences: $\Delta y_i = y_{i+1} - y_i$
+    * Second Order Differences: $\Delta^2 y_i = \Delta y_{i+1} - \Delta y_i$
+    * Continue until you reach a single value or negligible error.
+3.  **Calculate u:** Determine how far $x$ is from the starting point $x_0$ using $u = (x - x_0) / h$.
+4.  **Apply Formula:** Sum the terms using the values from the **top row** of the difference table.
+
+### 4. Conditions
+* **Equal Spacing:** The method fails if the difference between $x$ values is not constant.
+* **Position:** Best used when the value to be interpolated is near the start of the table ($x < x_n/2$). If the value is near the end, Newton's *Backward* Interpolation should be used instead.
+
+### 5. Advantages vs. Disadvantages
+
+**Advantages**
+* **Simpler Calculation:** For polynomial approximation, it is often simpler to compute manually than Lagrange's method.
+* **Convergent:** For smooth functions, the error decreases as you add higher-order difference terms.
+
+**Disadvantages**
+* **Rigid Input:** Strictly requires equally spaced data points.
+* **Location Dependent:** Accuracy degrades if the target point is far from the beginning of the list (use Backward or Central interpolation for other areas).
+
 ### Newton Forward Code
 ```cpp
 #include<bits/stdc++.h>
