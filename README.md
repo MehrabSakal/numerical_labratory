@@ -1827,6 +1827,75 @@ The result is: 15.625
 
 ### Newton Backward Theory
 
+Newton's Backward Interpolation is used to estimate the value of an unknown variable x which is greater than the middle value of the given data. This method is applicable when the difference between any two consecutive values of x is constant.
+
+### Given Data Points
+
+Let the given data points be x₀, x₁, …, xₙ with corresponding values y₀, y₁, …, yₙ.
+
+### Conditions
+
+The data must satisfy the condition:
+
+xᵢ - xᵢ₋₁ = h (constant), 1 ≤ i ≤ n
+
+and the interpolation point should satisfy:
+
+x > (x₀ + xₙ) / 2
+
+### Backward Difference
+
+The backward difference is defined as:
+
+∇yᵢ = yᵢ - yᵢ₋₁
+
+Higher order backward differences are:
+
+∇²yᵢ = ∇(∇yᵢ)
+∇³yᵢ = ∇(∇²yᵢ)
+
+and so on.
+
+### Interpolation Parameter
+
+Let
+
+u = (x - xₙ) / h
+
+### Newton's Backward Interpolation Formula
+
+Then the Newton's Backward Interpolation formula is given by:
+
+y(x) = yₙ + u∇yₙ + [u(u+1) / 2!]∇²yₙ + [u(u+1)(u+2) / 3!]∇³yₙ + ⋯
+
+### Algorithm Steps
+
+1. Verify that the data points have equal spacing: xᵢ - xᵢ₋₁ = h
+2. Verify that x > (x₀ + xₙ) / 2
+3. Construct the backward difference table:
+   - Calculate first differences: ∇yᵢ = yᵢ - yᵢ₋₁
+   - Calculate second differences: ∇²yᵢ = ∇yᵢ - ∇yᵢ₋₁
+   - Continue for higher order differences
+4. Calculate u = (x - xₙ) / h
+5. Apply the interpolation formula using the last row of the difference table
+
+### When to Use
+
+* Use Newton's Backward Interpolation when interpolating near the **end** of the data set
+* The interpolation point x should be closer to xₙ than to x₀
+* Particularly useful for extrapolation beyond the last data point
+
+### Advantages
+
+* **Efficient for end-point interpolation** - Best suited when x is near xₙ
+* **Simple computation** - Uses backward differences from the last row
+* **Equal spacing** - Works with equally spaced data points
+
+### Disadvantages
+
+* **Requires equal spacing** - Data points must have constant interval h
+* **Limited applicability** - Only effective for x > (x₀ + xₙ) / 2
+* **Accuracy decreases** - As x moves further from the data range
 ### Newton Backward Code
 ```cpp
 #include <bits/stdc++.h>
