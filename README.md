@@ -2021,6 +2021,62 @@ Students between 40 and 45 = 9.03125
 
 ### Newton Divided Difference Theory
 
+Newton's Divided Difference Interpolation is used to estimate the value of an unknown variable x when the data points are not equally spaced. This method constructs an interpolating polynomial that passes through all given data points.
+
+### Given Data Points
+
+Let the given data points be x₀, x₁, x₂, …, xₙ with corresponding values y₀, y₁, y₂, …, yₙ, where the values of x are not necessarily equally spaced.
+
+### First Divided Difference
+
+The first divided difference is defined as:
+
+f[xᵢ, xᵢ₊₁] = (yᵢ₊₁ - yᵢ) / (xᵢ₊₁ - xᵢ)
+
+### Second Divided Difference
+
+The second divided difference is defined as:
+
+f[xᵢ, xᵢ₊₁, xᵢ₊₂] = (f[xᵢ₊₁, xᵢ₊₂] - f[xᵢ, xᵢ₊₁]) / (xᵢ₊₂ - xᵢ)
+
+### Higher Order Divided Differences
+
+Higher order divided differences are defined recursively as:
+
+f[xᵢ, xᵢ₊₁, …, xᵢ₊ₖ] = (f[xᵢ₊₁, …, xᵢ₊ₖ] - f[xᵢ, …, xᵢ₊ₖ₋₁]) / (xᵢ₊ₖ - xᵢ)
+
+### Newton's Divided Difference Interpolation Formula
+
+The Newton's Divided Difference Interpolation formula is given by:
+
+y(x) = y₀ + (x - x₀)f[x₀, x₁] + (x - x₀)(x - x₁)f[x₀, x₁, x₂]
+     + (x - x₀)(x - x₁)(x - x₂)f[x₀, x₁, x₂, x₃] + ⋯
+
+### Algorithm Steps
+
+1. Construct the divided difference table:
+   - First column: y₀, y₁, …, yₙ
+   - Second column: First divided differences f[xᵢ, xᵢ₊₁]
+   - Third column: Second divided differences f[xᵢ, xᵢ₊₁, xᵢ₊₂]
+   - Continue until only one value remains
+2. Use the first row of each column in the interpolation formula
+3. Evaluate y(x) at the desired point x
+
+### When to Use
+
+This method is suitable for interpolation when the data points are **unequally spaced** and provides a flexible way to construct the interpolating polynomial.
+
+### Advantages
+
+* **Works with unequal spacing** - No requirement for constant interval between data points
+* **Flexible** - Can be easily extended to add more data points
+* **Efficient computation** - Reuses previously computed differences
+
+### Disadvantages
+
+* **Computational complexity** - Requires construction of complete difference table
+* **Numerical errors** - Can accumulate in higher order differences
+* **Sensitivity** - Results may be sensitive to the ordering of data points
 ### Newton Divided Difference Code
 ```cpp
 #include<bits/stdc++.h>
