@@ -2388,7 +2388,15 @@ $$y_{n+1} = y_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)$$
 * **Order of Accuracy:** Fourth-order ($O(h^4)$). This means if you halve the step size $h$, the error decreases by a factor of 16 ($2^4$).
 * **Stability:** It is much more stable and accurate than Euler's method or the Midpoint method for the same step size.
 
+### 6. Advantages vs. Disadvantages
 
+**Advantages**
+* **High Accuracy:** It provides excellent accuracy without requiring an extremely small step size.
+* **Self-Starting:** Unlike multi-step methods (like Adams-Bashforth), RK4 only needs the current point to calculate the next one.
+
+**Disadvantages**
+* **Computational Cost:** It requires evaluating the derivative function $f(x,y)$ four times per step (Euler's method only calculates it once).
+* **Complexity:** The formula is more complex to implement than basic first-order methods.
 
 ### Runge Kutta Code
 ```cpp
