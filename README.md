@@ -2942,6 +2942,60 @@ The relative error of f''(p) = 0.000%
 
 ### Differentiation by backward Theory
 
+Backward interpolation-based differentiation is a numerical technique used to approximate the first and second derivatives of a function when the function values are known at equally spaced points. This method is especially suitable when the point of differentiation lies near the end of the data table.
+
+The method is based on Newton's Backward Interpolation Formula, which utilizes backward differences calculated from the last tabulated value.
+
+### Step Size
+
+For equally spaced data points, the step size is defined as:
+
+h = xᵢ - xᵢ₋₁
+
+### Definition of v
+
+v = (p - xₙ) / h
+
+where:
+* p is the point at which differentiation is required
+* xₙ is the last tabulated value
+
+### Newton's Backward Interpolation Formula
+
+The backward interpolation polynomial is given by:
+
+y(x) = yₙ + v∇yₙ + [v(v+1) / 2!]∇²yₙ + [v(v+1)(v+2) / 3!]∇³yₙ + ⋯
+
+where ∇ denotes the backward difference operator.
+
+### First Derivative Formula
+
+The first derivative at point p is obtained by differentiating the backward interpolation polynomial:
+
+f'(p) = (1/h)[∇yₙ + [(2v+1) / 2]∇²yₙ + [(3v²+6v+2) / 6]∇³yₙ + [(4v³+18v²+22v+6) / 24]∇⁴yₙ + ⋯]
+
+### Second Derivative Formula
+
+The second derivative at point p is given by:
+
+f''(p) = (1/h²)[∇²yₙ + (v+1)∇³yₙ + [(12v²+36v+22) / 24]∇⁴yₙ + ⋯]
+
+### Algorithm Steps
+
+1. Construct the backward difference table:
+   - First backward differences: ∇yᵢ = yᵢ - yᵢ₋₁
+   - Second backward differences: ∇²yᵢ = ∇yᵢ - ∇yᵢ₋₁
+   - Continue for higher order differences
+2. Calculate v = (p - xₙ) / h
+3. For first derivative: Substitute v and backward differences into f'(p) formula
+4. For second derivative: Substitute v and backward differences into f''(p) formula
+
+### Error Calculation
+
+The accuracy of the numerical derivatives is evaluated using relative error:
+
+Relative Error = |Exact Value - Numerical Value| / |Exact Value| × 100
+
 ### Differentiation by backward Code
 ```cpp
 #include <bits/stdc++.h>
