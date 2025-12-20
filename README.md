@@ -623,7 +623,66 @@ Inverse Matrix (by Adjoint Method):
 ### Bisection Method
 
 #### Bisection Theory
-[Add your theory content here]
+# Numerical Methods Repository
+
+## The Bisection Method
+
+### 1. Introduction
+The Bisection Method is one of the fundamental numerical techniques used to find the root of a non-linear equation f(x) = 0. It is classified as a "bracketing method" because it requires two initial guesses that bracket (enclose) the root. It is widely used due to its simplicity and guaranteed convergence for continuous functions.
+
+### 2. Mathematical Principle
+The method is based on the **Intermediate Value Theorem**. 
+
+The theorem states:
+If a function f(x) is continuous on an interval [a, b], and the signs of f(a) and f(b) are opposite (meaning f(a) * f(b) < 0), then there is at least one root 'c' strictly between 'a' and 'b' such that f(c) = 0.
+
+Essentially, if the function goes from positive to negative, it must cross the x-axis (zero) somewhere in between.
+
+### 3. The Algorithm Steps
+Given a function f(x) and an interval [a, b] such that f(a) and f(b) have opposite signs:
+
+1.  **Calculate Midpoint:** Compute the middle point 'c' of the interval: 
+    c = (a + b) / 2
+
+2.  **Evaluate Function:** Calculate the value of f(c).
+
+3.  **Check for Root:**
+    * If f(c) is 0 (or very close to 0 within a specified tolerance), then 'c' is the root. Stop here.
+
+4.  **Update Interval:**
+    * If f(a) and f(c) have **opposite signs** (f(a) * f(c) < 0), the root lies in the left half. 
+        -> Set b = c (The new interval is [a, c])
+    * If f(a) and f(c) have the **same sign**, the root lies in the right half. 
+        -> Set a = c (The new interval is [c, b])
+
+5.  **Repeat:** Repeat steps 1-4 until the interval size (b - a) is smaller than your desired error tolerance.
+
+### 4. Convergence Analysis
+The Bisection Method is known for being reliable but relatively slow compared to other methods.
+
+* **Convergence Type:** Linear Convergence.
+* **Convergence Rate:** The interval size is halved in every iteration. This means the method gains approximately one decimal digit of accuracy for every 3.3 iterations.
+* **Error Estimate:** The absolute error after 'n' iterations is guaranteed to be less than:
+    Error <= (Original Interval Size) / 2^n
+
+### 5. Stopping Criteria
+In a computer program, we cannot iterate forever. The loop typically stops when one of these conditions is met:
+
+1.  **Absolute Error:** The width of the interval |b - a| is less than a small number epsilon (e.g., 0.00001).
+2.  **Function Value:** The value of |f(c)| is extremely close to zero.
+3.  **Iteration Limit:** A safety counter (e.g., 100 iterations) is reached to prevent infinite loops if something goes wrong.
+
+### 6. Advantages vs. Disadvantages
+
+**Advantages**
+* **Guaranteed Convergence:** As long as the function is continuous and the interval is valid, it will ALWAYS find a root.
+* **Simple:** It requires no knowledge of derivatives (unlike Newton-Raphson).
+* **Error Bound:** You can easily calculate exactly how many iterations are needed to reach a specific accuracy before you even start.
+
+**Disadvantages**
+* **Slow:** It converges slowly. If you need high precision, it takes many iterations.
+* **No Complex Roots:** It cannot find imaginary or complex roots (e.g., x^2 + 1 = 0).
+* **Multiple Roots:** If the interval contains multiple roots, it will only find one of them, and it's unpredictable which one it will find.
 
 #### Bisection Code
 ```cpp
