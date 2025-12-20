@@ -475,7 +475,82 @@ No Solution
 ### Matrix Inversion
 
 #### Matrix Inversion Theory
-[Add your theory content here]
+# Matrix Inversion Method
+
+Matrix Inversion is a numerical method used to solve a system of linear equations of the form:
+
+**A·X = B**
+
+where:
+* **A** is the coefficient matrix
+* **X** is the vector of unknowns
+* **B** is the constant vector
+
+If the inverse of matrix **A** exists, the solution is:
+
+**X = A⁻¹·B**
+
+## Condition for Inverse
+
+The inverse of a square matrix exists only if its determinant is non-zero:
+
+**det(A) ≠ 0**
+
+If **det(A) = 0**, the matrix is singular and the system has either no solution or infinitely many solutions.
+
+## Determinant
+
+The determinant of a matrix is calculated using cofactor expansion:
+
+in plain text:
+
+det(A) = Σ(j=1 to n) (-1)^(1+j) · a₁ⱼ · det(M₁ⱼ)
+
+
+## Cofactor
+
+The cofactor of an element **aᵢⱼ** is defined as:
+
+**Cᵢⱼ = (-1)^(i+j) · det(Mᵢⱼ)**
+
+where **Mᵢⱼ** is the minor matrix obtained by deleting row i and column j.
+
+## Adjoint Matrix
+
+The adjoint of a matrix is the transpose of the cofactor matrix:
+
+**adj(A) = [Cᵢⱼ]ᵀ**
+
+## Inverse Matrix
+
+The inverse of matrix **A** is given by:
+
+**A⁻¹ = (1/det(A)) · adj(A)**
+
+## Solving the System Using Inverse Matrix
+
+Given:
+
+**A·X = B**
+
+Multiplying both sides by **A⁻¹**:
+
+**X = A⁻¹·B**
+
+This method provides a unique solution only when **det(A) ≠ 0**.
+
+## Augmented Matrix Representation
+
+The system is provided as an augmented matrix:
+
+[A|B] = [a₁₁  a₁₂  ⋯  a₁ₙ | b₁]
+        [a₂₁  a₂₂  ⋯  a₂ₙ | b₂]
+        [ ⋮    ⋮   ⋱   ⋮  | ⋮ ]
+        [aₙ₁  aₙ₂  ⋯  aₙₙ | bₙ]
+
+
+* First **n** columns represent matrix **A**
+* Last column represents vector **B**
 
 #### Matrix Inversion Code
 ```cpp
