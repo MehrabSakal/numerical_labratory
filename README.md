@@ -2200,10 +2200,10 @@ int main()
 ```
 ### Runge Kutta Input
 ```
-input here
+0 1 0.2 0.1
 ```
 ### Runge Kutta Output
 ```
-output here
+Result: 1.27356
 ```
 ---
