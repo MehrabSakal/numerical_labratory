@@ -1220,6 +1220,67 @@ Iteration: 30
 
 ### Newton Rapson Theory
 
+The Newton-Raphson Method is a numerical technique used to determine the root of a non-linear equation of the form f(x) = 0. Unlike the Secant or False Position methods, the Newton-Raphson Method requires the derivative of the function to compute successive approximations. It uses a single initial guess that is close to the root.
+
+### Initial Guess
+
+Let the initial guess be:
+
+x₀
+
+### Iterative Formula
+
+The next approximation of the root is computed using the formula:
+
+xₙ₊₁ = xₙ - f(xₙ) / f'(xₙ)
+
+Here, xₙ₊₁ is obtained by finding the x-intercept of the tangent line to the curve y = f(x) at the point (xₙ, f(xₙ)).
+
+### Iteration Process
+
+The process is repeated iteratively, updating the approximation as follows:
+
+xₙ ← xₙ₊₁
+
+until the difference between successive approximations becomes smaller than a prescribed tolerance:
+
+|xₙ₊₁ - xₙ| < ε
+
+or the absolute value of the function at the current approximation satisfies:
+
+|f(xₙ₊₁)| < ε
+
+### Algorithm Steps
+
+1. Start with an initial guess x₀
+2. Compute f(xₙ) and f'(xₙ)
+3. Calculate the next approximation:
+
+   xₙ₊₁ = xₙ - f(xₙ) / f'(xₙ)
+
+4. Check convergence criteria:
+   - If |xₙ₊₁ - xₙ| < ε or |f(xₙ₊₁)| < ε, stop
+   - Otherwise, set xₙ = xₙ₊₁ and repeat from step 2
+
+### Convergence Characteristics
+
+The Newton-Raphson Method typically converges faster than the Bisection or Secant Methods, especially when the initial guess is sufficiently close to the root.
+
+**However, it may fail to converge if:**
+* The derivative is zero or very small at some iteration: f'(xₙ) ≈ 0
+* The initial guess is far from the actual root
+* The function has multiple roots or local extrema near the initial guess
+
+### Advantages
+
+* **Fast convergence** - Quadratic convergence rate when conditions are favorable
+* **Efficient** - Requires fewer iterations compared to other methods
+
+### Disadvantages
+
+* **Requires derivative** - Must compute or know f'(x)
+* **Sensitive to initial guess** - Poor initial guess may lead to divergence
+* **May fail** - When f'(x) = 0 or is very small
 ### Newton Rapson Code
 ```cpp
 #include<bits/stdc++.h>
