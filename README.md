@@ -1841,70 +1841,60 @@ Estimated y = 4.23097
 ### Polynomial Regression Theory
 ## Polynomial Regression Method
 
-### 1. Introduction
-Polynomial Regression is a form of regression analysis used to model a non-linear relationship between the independent variable $x$ and the dependent variable $y$. While Linear Regression fits a straight line, Polynomial Regression fits a curve (e.g., a parabola or cubic curve) to the data.
+## Lagrange Interpolation Method
 
-It is typically used when the data shows a curved pattern that a simple straight line cannot capture.
+### 1. Introduction
+Lagrange Interpolation is a powerful method used to find a polynomial that passes **exactly** through a given set of data points. Unlike Newton's Interpolation, the Lagrange method does **not** require the data points to be equally spaced.
+
+It is used to estimate the value of $y$ for a specific $x$ by constructing a single polynomial equation that connects all the known points.
 
 
 
 ### 2. Mathematical Principle
-We model the relationship as an $n^{th}$ degree polynomial:
+Given a set of $n+1$ points $(x_0, y_0), (x_1, y_1), \dots, (x_n, y_n)$, the Lagrange Polynomial $P(x)$ is defined as:
 
-$$y = a_0 + a_1x + a_2x^2 + \dots + a_nx^n + \epsilon$$
+$$P(x) = \sum_{i=0}^{n} y_i L_i(x)$$
 
-Where:
-* $a_0, a_1, \dots, a_n$ are the coefficients we need to find.
-* $n$ is the degree of the polynomial (e.g., $n=2$ is Quadratic, $n=3$ is Cubic).
+Where $L_i(x)$ are the **Lagrange Basis Polynomials**.
 
-**The General Matrix Form:**
-To find the coefficients, we solve a system of linear equations (Normal Equations) derived from the Least Squares method. For a 2nd degree (Quadratic) polynomial ($y = a_0 + a_1x + a_2x^2$), the system looks like this:
+**The Logic:**
+The basis polynomial $L_i(x)$ is designed such that:
+* It equals **1** at $x_i$.
+* It equals **0** at all other points $x_j$ (where $j \neq i$).
 
-$$
-\begin{bmatrix}
-n & \sum x & \sum x^2 \\
-\sum x & \sum x^2 & \sum x^3 \\
-\sum x^2 & \sum x^3 & \sum x^4
-\end{bmatrix}
-\begin{bmatrix}
-a_0 \\
-a_1 \\
-a_2
-\end{bmatrix}
-=
-\begin{bmatrix}
-\sum y \\
-\sum xy \\
-\sum x^2y
-\end{bmatrix}
-$$
+This ensures that when you plug in any known $x$ value, the formula returns the correct corresponding $y$.
 
-### 3. The Algorithm Steps
-1.  **Choose Degree:** Decide on the degree $n$ of the polynomial (usually $n=2$ or $n=3$).
-2.  **Calculate Sums:** Iterate through the data to compute the required sums:
-    * $\sum x, \sum x^2, \dots, \sum x^{2n}$
-    * $\sum y, \sum xy, \sum x^2y, \dots, \sum x^ny$
-3.  **Build Matrix:** Construct the system of linear equations (as shown above).
-4.  **Solve:** Use **Gauss Elimination** or **LU Decomposition** to solve the matrix system for the coefficients $a_0, a_1, \dots, a_n$.
-5.  **Result:** The final model is the polynomial equation using these coefficients.
+### 3. The Formula
+For a set of 3 points (Quadratic Interpolation), the formula expands to:
 
-### 4. Overfitting Warning
-One might assume that a higher degree polynomial is always better. However, increasing the degree too much leads to **Overfitting**.
+$$y = \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}y_0 + \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}y_1 + \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}y_2$$
 
-* **Underfitting:** A straight line (degree 1) fails to capture the curve.
-* **Good Fit:** A curve (e.g., degree 2 or 3) follows the general trend.
-* **Overfitting:** A very high degree polynomial (e.g., degree 10) wiggles wildly to pass through every single noise point, failing to predict future data accurately.
+**Pattern:**
+* **Numerator:** Multiply terms $(x - x_j)$ for all $j$ except the current index $i$.
+* **Denominator:** Multiply terms $(x_i - x_j)$ for all $j$ except the current index $i$.
+* **Multiplier:** Multiply the whole fraction by $y_i$.
+
+### 4. The Algorithm Steps
+1.  **Input:** A target value $x$ and lists of known data points $X$ and $Y$.
+2.  **Initialize:** Set the final result `sum = 0`.
+3.  **Outer Loop:** Iterate through every point $i$ (from 0 to $n$).
+    * Initialize a term `term = 1`.
+    * **Inner Loop:** Iterate through every point $j$ (from 0 to $n$).
+        * If $i \neq j$, update the term:
+          `term = term * (x - X[j]) / (X[i] - X[j])`
+    * Add to sum: `sum = sum + (term * Y[i])`
+4.  **Output:** The `sum` is the interpolated value.
 
 ### 5. Advantages vs. Disadvantages
 
 **Advantages**
-* **Flexible:** Can model a wide range of curvatures.
-* **Simple Extension:** It uses the same Least Squares principle as linear regression, just with more terms.
+* **Flexible:** Works with **unequally spaced** data points (unlike Newton Forward/Backward).
+* **Direct:** Does not require constructing a difference table first.
 
 **Disadvantages**
-* **Outliers:** Like linear regression, it is sensitive to outliers.
-* **Complexity:** As the degree $n$ increases, the matrix calculation becomes computationally expensive and prone to numerical instability (Runge's phenomenon).
-
+* **Computationally Expensive:** Requires many multiplications and divisions for every single calculation.
+* **No Incremental Updates:** If you add one new data point, you have to recalculate the entire formula from scratch (unlike Newton's Divided Difference).
+* **Oscillation:** For large numbers of points (high degree polynomials), the curve can oscillate wildly between points (Runge's Phenomenon).
 ### Polynomial Regression Code
 ```cpp
 #include <bits/stdc++.h>
