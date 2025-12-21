@@ -1573,11 +1573,66 @@ Root = 2   Iterations = 3
 Root = 3   Iterations = 
 ```
 ---
-### Least Square Regression
+## Least Square Regression
 
 ### Linear Regression Method
 
 ### Linear Regression Theory
+
+### 1. Introduction
+Linear Regression is a technique used to model the relationship between two variables by fitting a linear equation (a straight line) to the observed data. The most common method for doing this is the **Method of Least Squares**.
+
+The goal is to find the "Best Fit Line" that minimizes the error between the actual data points and the predicted values on the line.
+
+
+
+### 2. Mathematical Principle
+We assume the relationship between the independent variable $x$ and the dependent variable $y$ is a straight line:
+
+$$y = mx + c$$
+
+Where:
+* **$m$ (Slope):** The rate at which $y$ changes with respect to $x$.
+* **$c$ (Intercept):** The value of $y$ when $x$ is 0.
+
+**The "Least Squares" Criterion:**
+The method calculates $m$ and $c$ such that the **Sum of Squared Errors (SSE)** is minimized.
+$$SSE = \sum_{i=1}^{n} (y_{actual} - y_{predicted})^2$$
+
+By squaring the errors, we ensure that positive and negative errors don't cancel each other out, and we penalize larger errors more heavily.
+
+### 3. The Formulas
+Given a set of $n$ data points $(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)$:
+
+**Step 1: Calculate the Slope ($m$)**
+$$m = \frac{n \sum (xy) - (\sum x)(\sum y)}{n \sum (x^2) - (\sum x)^2}$$
+
+**Step 2: Calculate the Intercept ($c$)**
+Once you have the slope $m$, you can find the intercept using the averages of $x$ and $y$:
+
+$$c = \bar{y} - m\bar{x}$$
+
+*(Where $\bar{y} = \frac{\sum y}{n}$ is the mean of y, and $\bar{x} = \frac{\sum x}{n}$ is the mean of x).*
+
+### 4. The Algorithm Steps
+1.  **Summation:** Iterate through the dataset and calculate the sums:
+    * $\sum x$ (Sum of x)
+    * $\sum y$ (Sum of y)
+    * $\sum xy$ (Sum of product x*y)
+    * $\sum x^2$ (Sum of x squared)
+2.  **Compute Slope:** Apply the formula for $m$.
+3.  **Compute Intercept:** Apply the formula for $c$ using the means.
+4.  **Model:** The final equation is $y = mx + c$. You can now use this to predict $y$ for any new $x$.
+
+### 5. Advantages vs. Disadvantages
+
+**Advantages**
+* **Simplicity:** It provides a simple, closed-form formula (no iteration required).
+* **Interpretability:** The results (slope and intercept) have clear physical meanings in most problems.
+
+**Disadvantages**
+* **Linear Assumption:** It assumes the data follows a straight line. If the data is curved (exponential, parabolic), this method yields poor results.
+* **Sensitivity to Outliers:** A single "bad" data point (outlier) that is far away from the others can drastically pull the line off course, ruining the model.
 
 ### Linear Regression Code
 ```cpp
