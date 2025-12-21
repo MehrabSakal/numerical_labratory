@@ -1784,6 +1784,71 @@ Estimated y = 4.23097
 ### Polynomial Regression Method
 
 ### Polynomial Regression Theory
+## Polynomial Regression Method
+
+### 1. Introduction
+Polynomial Regression is a form of regression analysis used to model a non-linear relationship between the independent variable $x$ and the dependent variable $y$. While Linear Regression fits a straight line, Polynomial Regression fits a curve (e.g., a parabola or cubic curve) to the data.
+
+It is typically used when the data shows a curved pattern that a simple straight line cannot capture.
+
+
+
+### 2. Mathematical Principle
+We model the relationship as an $n^{th}$ degree polynomial:
+
+$$y = a_0 + a_1x + a_2x^2 + \dots + a_nx^n + \epsilon$$
+
+Where:
+* $a_0, a_1, \dots, a_n$ are the coefficients we need to find.
+* $n$ is the degree of the polynomial (e.g., $n=2$ is Quadratic, $n=3$ is Cubic).
+
+**The General Matrix Form:**
+To find the coefficients, we solve a system of linear equations (Normal Equations) derived from the Least Squares method. For a 2nd degree (Quadratic) polynomial ($y = a_0 + a_1x + a_2x^2$), the system looks like this:
+
+$$
+\begin{bmatrix}
+n & \sum x & \sum x^2 \\
+\sum x & \sum x^2 & \sum x^3 \\
+\sum x^2 & \sum x^3 & \sum x^4
+\end{bmatrix}
+\begin{bmatrix}
+a_0 \\
+a_1 \\
+a_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+\sum y \\
+\sum xy \\
+\sum x^2y
+\end{bmatrix}
+$$
+
+### 3. The Algorithm Steps
+1.  **Choose Degree:** Decide on the degree $n$ of the polynomial (usually $n=2$ or $n=3$).
+2.  **Calculate Sums:** Iterate through the data to compute the required sums:
+    * $\sum x, \sum x^2, \dots, \sum x^{2n}$
+    * $\sum y, \sum xy, \sum x^2y, \dots, \sum x^ny$
+3.  **Build Matrix:** Construct the system of linear equations (as shown above).
+4.  **Solve:** Use **Gauss Elimination** or **LU Decomposition** to solve the matrix system for the coefficients $a_0, a_1, \dots, a_n$.
+5.  **Result:** The final model is the polynomial equation using these coefficients.
+
+### 4. Overfitting Warning
+One might assume that a higher degree polynomial is always better. However, increasing the degree too much leads to **Overfitting**.
+
+* **Underfitting:** A straight line (degree 1) fails to capture the curve.
+* **Good Fit:** A curve (e.g., degree 2 or 3) follows the general trend.
+* **Overfitting:** A very high degree polynomial (e.g., degree 10) wiggles wildly to pass through every single noise point, failing to predict future data accurately.
+
+### 5. Advantages vs. Disadvantages
+
+**Advantages**
+* **Flexible:** Can model a wide range of curvatures.
+* **Simple Extension:** It uses the same Least Squares principle as linear regression, just with more terms.
+
+**Disadvantages**
+* **Outliers:** Like linear regression, it is sensitive to outliers.
+* **Complexity:** As the degree $n$ increases, the matrix calculation becomes computationally expensive and prone to numerical instability (Runge's phenomenon).
 
 ### Polynomial Regression Code
 ```cpp
