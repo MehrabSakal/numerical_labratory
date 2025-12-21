@@ -1702,6 +1702,61 @@ Estimated y = 13
 
 ### Transcendental Regression Theory
 
+## Transcendental Regression (Non-Linear Curve Fitting)
+
+### 1. Introduction
+Transcendental Regression is used when data follows a pattern that is not a straight line or a simple polynomial, but rather a transcendental function (such as exponential growth, logarithmic decay, or power laws).
+
+Since the Method of Least Squares is designed for linear equations, we cannot apply it directly to these curves. Instead, we use a technique called **Linearization**: we transform the non-linear equation into a linear form ($Y = mX + c$) using logarithms.
+
+
+
+### 2. Common Models
+There are two very common transcendental models used in engineering and science:
+
+**A. Exponential Model (Growth/Decay)**
+Used for population growth, radioactive decay, or cooling.
+* **Equation:** $y = a e^{bx}$
+* **Linearization:** Take the natural log ($\ln$) of both sides.
+    $$\ln(y) = \ln(a) + bx$$
+    This matches the linear form $Y = C + mX$, where $Y = \ln(y)$, $C = \ln(a)$, and $m = b$.
+
+**B. Power Equation Model**
+Used for fluid flow, aerodynamic drag, or scaling laws.
+* **Equation:** $y = a x^b$
+* **Linearization:** Take the base-10 log ($\log$) of both sides.
+    $$\log(y) = \log(a) + b \log(x)$$
+    This matches the linear form $Y = C + mX$, where $Y = \log(y)$, $X = \log(x)$, $C = \log(a)$, and $m = b$.
+
+### 3. The Algorithm Steps (Exponential Example)
+To fit the model $y = a e^{bx}$:
+
+1.  **Transform Data:** Create a new column of data values by calculating the natural log of every $y$ value ($z_i = \ln(y_i)$).
+2.  **Apply Linear Regression:** Perform standard Linear Regression on the dataset $(x_i, z_i)$ to find the slope $m$ and intercept $C$.
+    * Calculate sums: $\sum x, \sum z, \sum x^2, \sum xz$.
+    * Solve for $m$ and $C$.
+3.  **Inverse Transformation:** Convert the linear results back to the original constants:
+    * $b = m$
+    * $a = e^C$
+4.  **Final Equation:** Substitute $a$ and $b$ back into $y = a e^{bx}$.
+
+### 4. Comparison
+| Model | Original Equation | Transformation Required |
+| :--- | :--- | :--- |
+| **Exponential** | $y = ae^{bx}$ | Plot $\ln(y)$ vs $x$ |
+| **Power** | $y = ax^b$ | Plot $\log(y)$ vs $\log(x)$ |
+| **Saturation** | $y = \frac{ax}{b+x}$ | Plot $\frac{1}{y}$ vs $\frac{1}{x}$ |
+
+### 5. Advantages vs. Disadvantages
+
+**Advantages**
+* **Simple:** Allows you to use standard Linear Regression code to solve complex non-linear problems.
+* **Visual Check:** You can visually verify the fit by plotting the transformed data; if it looks like a straight line, the model is correct.
+
+**Disadvantages**
+* **Error Distortion:** Minimizing the error of the *logarithms* is not mathematically identical to minimizing the error of the *original data*. This can sometimes lead to slightly biased results for the curve.
+* **Logarithm Limits:** You cannot use this method if the data contains zero or negative values (since $\ln(0)$ and $\ln(-x)$ are undefined).
+
 ### Transcendental Regression Code
 ```cpp
 #include <bits/stdc++.h>
